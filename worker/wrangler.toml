@@ -1,0 +1,38 @@
+# Cloudflare Worker Configuration for LandingForge
+
+name = "landingforge-worker"
+main = "index.ts"
+compatibility_date = "2024-01-01"
+
+# Worker routes
+# In production, you'll set up custom routes for your domain
+# routes = [
+#   { pattern = "*.landingforge.app", zone_name = "landingforge.app" }
+# ]
+
+# Environment variables (set these in Cloudflare dashboard)
+# [vars]
+# SUPABASE_URL = "https://xxxxx.supabase.co"
+# SUPABASE_ANON_KEY = "eyJxxxxx..."
+
+# KV Namespace for caching (optional but recommended)
+# [[kv_namespaces]]
+# binding = "PAGES_CACHE"
+# id = "xxxxx"  # Get this from Cloudflare dashboard
+
+# Development settings
+[env.development]
+# For local testing
+# wrangler dev --local
+
+# Production settings
+[env.production]
+# Set these secrets via: wrangler secret put SUPABASE_URL
+# wrangler secret put SUPABASE_ANON_KEY
+
+# Build configuration
+[build]
+command = "npx tsc"
+
+[build.upload]
+format = "service-worker"

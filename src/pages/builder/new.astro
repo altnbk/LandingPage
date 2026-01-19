@@ -1,0 +1,748 @@
+---
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="Create Landing Page">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Progress Steps -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between max-w-3xl mx-auto">
+        <div class="flex-1 flex items-center" id="step-1">
+          <div class="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold">1</div>
+          <div class="flex-1 h-1 bg-primary-600 mx-2"></div>
+        </div>
+        <div class="flex-1 flex items-center" id="step-2">
+          <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">2</div>
+          <div class="flex-1 h-1 bg-gray-300 mx-2"></div>
+        </div>
+        <div class="flex-1 flex items-center" id="step-3">
+          <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">3</div>
+        </div>
+      </div>
+      <div class="flex justify-between max-w-3xl mx-auto mt-2 text-sm text-gray-600">
+        <span>Template</span>
+        <span>Content</span>
+        <span>Preview</span>
+      </div>
+    </div>
+
+    <div id="alert-container"></div>
+
+    <!-- Step 1: Template Selection -->
+    <div id="template-step" class="max-w-6xl mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Choose Your Template</h1>
+        <p class="text-gray-600">Pick a design that fits your style</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <!-- Modern Template -->
+        <div class="template-card border-4 border-transparent hover:border-primary-500 rounded-xl overflow-hidden cursor-pointer transition-all" data-template="modern">
+          <div class="bg-gradient-to-br from-blue-500 to-purple-600 h-64 flex items-center justify-center text-white text-center p-6">
+            <div>
+              <h3 class="text-3xl font-bold mb-2">Modern</h3>
+              <p class="text-sm opacity-90">Gradient hero with animations</p>
+            </div>
+          </div>
+          <div class="bg-white p-4 border-t">
+            <p class="text-sm text-gray-600">Perfect for SaaS products and tech startups</p>
+          </div>
+        </div>
+
+        <!-- Minimal Template -->
+        <div class="template-card border-4 border-transparent hover:border-primary-500 rounded-xl overflow-hidden cursor-pointer transition-all" data-template="minimal">
+          <div class="bg-white h-64 flex items-center justify-center text-gray-900 text-center p-6 border">
+            <div>
+              <h3 class="text-3xl font-bold mb-2 font-serif">Minimal</h3>
+              <p class="text-sm text-gray-600">Clean, elegant typography</p>
+            </div>
+          </div>
+          <div class="bg-white p-4 border-t">
+            <p class="text-sm text-gray-600">Great for professional services and consultants</p>
+          </div>
+        </div>
+
+        <!-- Bold Template -->
+        <div class="template-card border-4 border-transparent hover:border-primary-500 rounded-xl overflow-hidden cursor-pointer transition-all" data-template="bold">
+          <div class="bg-yellow-400 h-64 flex items-center justify-center text-gray-900 text-center p-6 relative overflow-hidden">
+            <div class="relative z-10">
+              <h3 class="text-4xl font-black mb-2 uppercase">BOLD</h3>
+              <p class="text-sm font-bold">High-impact design</p>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 opacity-50"></div>
+          </div>
+          <div class="bg-white p-4 border-t">
+            <p class="text-sm text-gray-600">Eye-catching for events and promotions</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button id="continue-to-content" class="btn-primary px-8 py-3" disabled>
+          Continue to Content →
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Content Editor -->
+    <div id="content-step" class="hidden">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Left: Form -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Customize Your Content</h2>
+
+          <form id="content-form" class="space-y-6">
+            <!-- Page Title -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Page Title <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="title"
+                required
+                class="input"
+                placeholder="My Awesome Product"
+              />
+              <p class="text-xs text-gray-500 mt-1">Internal name (not shown on page)</p>
+            </div>
+
+            <!-- Subdomain -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Subdomain <span class="text-red-500">*</span>
+              </label>
+              <div class="flex items-center">
+                <input
+                  type="text"
+                  name="subdomain"
+                  required
+                  pattern="[a-z0-9-]+"
+                  class="input flex-1"
+                  placeholder="my-awesome-product"
+                />
+                <span class="ml-2 text-gray-600">.landingforge.app</span>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">Lowercase letters, numbers, and hyphens only</p>
+            </div>
+
+            <!-- Headline -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Headline <span class="text-red-500">*</span>
+                <button type="button" class="ai-button ml-2 text-xs" data-field="headline">
+                  ✨ AI Generate
+                </button>
+              </label>
+              <input
+                type="text"
+                name="headline"
+                required
+                class="input"
+                placeholder="Transform Your Business Today"
+              />
+            </div>
+
+            <!-- Subheadline -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Subheadline
+                <button type="button" class="ai-button ml-2 text-xs" data-field="subheadline">
+                  ✨ AI Generate
+                </button>
+              </label>
+              <input
+                type="text"
+                name="subheadline"
+                class="input"
+                placeholder="The fastest way to grow your business"
+              />
+            </div>
+
+            <!-- Body Text -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Body Text
+                <button type="button" class="ai-button ml-2 text-xs" data-field="body_text">
+                  ✨ AI Generate
+                </button>
+              </label>
+              <textarea
+                name="body_text"
+                rows="4"
+                class="input"
+                placeholder="Describe your product or service..."
+              ></textarea>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Button Text <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="cta_button_text"
+                  required
+                  class="input"
+                  placeholder="Get Started Free"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Button Link <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="url"
+                  name="cta_button_link"
+                  required
+                  class="input"
+                  placeholder="https://..."
+                />
+              </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Hero Image
+              </label>
+              <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                <input
+                  type="file"
+                  id="image-upload"
+                  accept="image/*"
+                  class="hidden"
+                />
+                <div id="upload-area">
+                  <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <button type="button" id="upload-btn" class="btn-secondary">
+                    Choose Image
+                  </button>
+                  <p class="text-xs text-gray-500 mt-2">PNG, JPG, GIF up to 5MB</p>
+                </div>
+                <div id="image-preview" class="hidden">
+                  <img src="" alt="Preview" class="max-h-48 mx-auto rounded-lg mb-2" />
+                  <button type="button" id="remove-image" class="text-sm text-red-600 hover:text-red-700">
+                    Remove Image
+                  </button>
+                </div>
+              </div>
+              <input type="hidden" name="hero_image_url" id="hero-image-url" />
+            </div>
+
+            <!-- Color Scheme -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Color Scheme
+                <button type="button" class="ai-button ml-2 text-xs" data-field="colors">
+                  ✨ AI Suggest
+                </button>
+              </label>
+              <div class="grid grid-cols-5 gap-3">
+                <div class="color-option cursor-pointer rounded-lg p-4 border-2 border-transparent hover:border-primary-500" data-scheme="blue">
+                  <div class="flex space-x-1">
+                    <div class="w-6 h-6 rounded bg-blue-600"></div>
+                    <div class="w-6 h-6 rounded bg-blue-400"></div>
+                    <div class="w-6 h-6 rounded bg-blue-200"></div>
+                  </div>
+                  <p class="text-xs mt-2 text-center">Blue</p>
+                </div>
+                <div class="color-option cursor-pointer rounded-lg p-4 border-2 border-transparent hover:border-primary-500" data-scheme="purple">
+                  <div class="flex space-x-1">
+                    <div class="w-6 h-6 rounded bg-purple-600"></div>
+                    <div class="w-6 h-6 rounded bg-purple-400"></div>
+                    <div class="w-6 h-6 rounded bg-purple-200"></div>
+                  </div>
+                  <p class="text-xs mt-2 text-center">Purple</p>
+                </div>
+                <div class="color-option cursor-pointer rounded-lg p-4 border-2 border-transparent hover:border-primary-500" data-scheme="green">
+                  <div class="flex space-x-1">
+                    <div class="w-6 h-6 rounded bg-green-600"></div>
+                    <div class="w-6 h-6 rounded bg-green-400"></div>
+                    <div class="w-6 h-6 rounded bg-green-200"></div>
+                  </div>
+                  <p class="text-xs mt-2 text-center">Green</p>
+                </div>
+                <div class="color-option cursor-pointer rounded-lg p-4 border-2 border-transparent hover:border-primary-500" data-scheme="orange">
+                  <div class="flex space-x-1">
+                    <div class="w-6 h-6 rounded bg-orange-600"></div>
+                    <div class="w-6 h-6 rounded bg-orange-400"></div>
+                    <div class="w-6 h-6 rounded bg-orange-200"></div>
+                  </div>
+                  <p class="text-xs mt-2 text-center">Orange</p>
+                </div>
+                <div class="color-option cursor-pointer rounded-lg p-4 border-2 border-transparent hover:border-primary-500" data-scheme="pink">
+                  <div class="flex space-x-1">
+                    <div class="w-6 h-6 rounded bg-pink-600"></div>
+                    <div class="w-6 h-6 rounded bg-pink-400"></div>
+                    <div class="w-6 h-6 rounded bg-pink-200"></div>
+                  </div>
+                  <p class="text-xs mt-2 text-center">Pink</p>
+                </div>
+              </div>
+              <input type="hidden" name="color_scheme" id="color-scheme" value="blue" />
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex space-x-3 pt-4 border-t">
+              <button type="button" id="back-to-template" class="btn-secondary flex-1">
+                ← Back
+              </button>
+              <button type="button" id="save-draft" class="btn-secondary flex-1">
+                Save Draft
+              </button>
+              <button type="button" id="preview-page" class="btn-primary flex-1">
+                Preview →
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Live Preview -->
+        <div class="bg-gray-50 rounded-xl border border-gray-200 p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Live Preview</h3>
+          <div class="bg-white border rounded-lg overflow-hidden" style="height: 600px; overflow-y: auto;">
+            <div id="live-preview" class="transform scale-50 origin-top-left" style="width: 200%; height: 200%;">
+              <div class="text-center py-20 text-gray-400">
+                <p>Fill in your content to see a preview</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Final Preview & Publish -->
+    <div id="preview-step" class="hidden">
+      <div class="max-w-4xl mx-auto text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Preview Your Landing Page</h1>
+        <p class="text-gray-600">Review everything before publishing</p>
+      </div>
+
+      <div class="max-w-6xl mx-auto bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
+        <div style="height: 600px; overflow-y: auto;" id="final-preview">
+          <!-- Preview will be rendered here -->
+        </div>
+      </div>
+
+      <div class="max-w-2xl mx-auto flex space-x-4">
+        <button id="back-to-content" class="btn-secondary flex-1">
+          ← Edit Content
+        </button>
+        <button id="publish-page" class="btn-primary flex-1 text-lg py-4">
+          🚀 Publish Landing Page
+        </button>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  import { supabase, getCurrentUser } from '../../lib/supabase';
+
+  // State
+  let selectedTemplate = '';
+  let currentStep = 1;
+  let pageData: any = {};
+  let uploadedImageUrl = '';
+
+  // Color schemes
+  const colorSchemes: Record<string, any> = {
+    blue: {
+      primary: '#2563eb',
+      secondary: '#3b82f6',
+      accent: '#60a5fa',
+      background: '#eff6ff',
+      text: '#1e293b'
+    },
+    purple: {
+      primary: '#7c3aed',
+      secondary: '#8b5cf6',
+      accent: '#a78bfa',
+      background: '#f5f3ff',
+      text: '#1e293b'
+    },
+    green: {
+      primary: '#059669',
+      secondary: '#10b981',
+      accent: '#34d399',
+      background: '#ecfdf5',
+      text: '#1e293b'
+    },
+    orange: {
+      primary: '#ea580c',
+      secondary: '#f97316',
+      accent: '#fb923c',
+      background: '#fff7ed',
+      text: '#1e293b'
+    },
+    pink: {
+      primary: '#db2777',
+      secondary: '#ec4899',
+      accent: '#f472b6',
+      background: '#fdf2f8',
+      text: '#1e293b'
+    }
+  };
+
+  // Template selection
+  document.querySelectorAll('.template-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.template-card').forEach(c => {
+        c.classList.remove('border-primary-500', 'ring-4', 'ring-primary-200');
+      });
+      card.classList.add('border-primary-500', 'ring-4', 'ring-primary-200');
+      selectedTemplate = card.getAttribute('data-template') || '';
+      (document.getElementById('continue-to-content') as HTMLButtonElement).disabled = false;
+    });
+  });
+
+  // Step navigation
+  document.getElementById('continue-to-content')?.addEventListener('click', () => {
+    goToStep(2);
+  });
+
+  document.getElementById('back-to-template')?.addEventListener('click', () => {
+    goToStep(1);
+  });
+
+  document.getElementById('preview-page')?.addEventListener('click', () => {
+    if (validateForm()) {
+      collectFormData();
+      renderFinalPreview();
+      goToStep(3);
+    }
+  });
+
+  document.getElementById('back-to-content')?.addEventListener('click', () => {
+    goToStep(2);
+  });
+
+  function goToStep(step: number) {
+    currentStep = step;
+    document.getElementById('template-step')?.classList.add('hidden');
+    document.getElementById('content-step')?.classList.add('hidden');
+    document.getElementById('preview-step')?.classList.add('hidden');
+
+    if (step === 1) {
+      document.getElementById('template-step')?.classList.remove('hidden');
+    } else if (step === 2) {
+      document.getElementById('content-step')?.classList.remove('hidden');
+    } else if (step === 3) {
+      document.getElementById('preview-step')?.classList.remove('hidden');
+    }
+
+    // Update progress steps
+    updateProgressSteps(step);
+  }
+
+  function updateProgressSteps(step: number) {
+    for (let i = 1; i <= 3; i++) {
+      const stepEl = document.getElementById(`step-${i}`);
+      const circle = stepEl?.querySelector('div');
+      const line = stepEl?.querySelector('.h-1');
+
+      if (i < step) {
+        circle?.classList.remove('bg-gray-300', 'text-gray-600');
+        circle?.classList.add('bg-primary-600', 'text-white');
+        line?.classList.remove('bg-gray-300');
+        line?.classList.add('bg-primary-600');
+      } else if (i === step) {
+        circle?.classList.remove('bg-gray-300', 'text-gray-600');
+        circle?.classList.add('bg-primary-600', 'text-white');
+      } else {
+        circle?.classList.remove('bg-primary-600', 'text-white');
+        circle?.classList.add('bg-gray-300', 'text-gray-600');
+        line?.classList.remove('bg-primary-600');
+        line?.classList.add('bg-gray-300');
+      }
+    }
+  }
+
+  // Color scheme selection
+  document.querySelectorAll('.color-option').forEach(option => {
+    option.addEventListener('click', () => {
+      document.querySelectorAll('.color-option').forEach(o => {
+        o.classList.remove('border-primary-500', 'ring-2', 'ring-primary-200');
+      });
+      option.classList.add('border-primary-500', 'ring-2', 'ring-primary-200');
+      const scheme = option.getAttribute('data-scheme') || 'blue';
+      (document.getElementById('color-scheme') as HTMLInputElement).value = scheme;
+      updateLivePreview();
+    });
+  });
+
+  // Select first color scheme by default
+  document.querySelector('.color-option')?.classList.add('border-primary-500', 'ring-2', 'ring-primary-200');
+
+  // Image upload
+  document.getElementById('upload-btn')?.addEventListener('click', () => {
+    document.getElementById('image-upload')?.click();
+  });
+
+  document.getElementById('image-upload')?.addEventListener('change', async (e) => {
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    // Validate file size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showAlert('Image must be less than 5MB', 'error');
+      return;
+    }
+
+    try {
+      const user = await getCurrentUser();
+      if (!user) throw new Error('Not authenticated');
+
+      // Upload to Supabase Storage
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
+
+      const { data, error } = await supabase.storage
+        .from('landing-pages')
+        .upload(fileName, file);
+
+      if (error) throw error;
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('landing-pages')
+        .getPublicUrl(fileName);
+
+      uploadedImageUrl = urlData.publicUrl;
+      (document.getElementById('hero-image-url') as HTMLInputElement).value = uploadedImageUrl;
+
+      // Show preview
+      document.getElementById('upload-area')?.classList.add('hidden');
+      const preview = document.getElementById('image-preview');
+      preview?.classList.remove('hidden');
+      const img = preview?.querySelector('img');
+      if (img) img.src = uploadedImageUrl;
+
+      updateLivePreview();
+    } catch (error: any) {
+      showAlert('Failed to upload image: ' + error.message, 'error');
+    }
+  });
+
+  document.getElementById('remove-image')?.addEventListener('click', () => {
+    uploadedImageUrl = '';
+    (document.getElementById('hero-image-url') as HTMLInputElement).value = '';
+    document.getElementById('upload-area')?.classList.remove('hidden');
+    document.getElementById('image-preview')?.classList.add('hidden');
+    (document.getElementById('image-upload') as HTMLInputElement).value = '';
+    updateLivePreview();
+  });
+
+  // Live preview updates
+  const formInputs = document.querySelectorAll('#content-form input, #content-form textarea');
+  formInputs.forEach(input => {
+    input.addEventListener('input', updateLivePreview);
+  });
+
+  function updateLivePreview() {
+    // This is a simplified preview - in production you'd render the actual template
+    const headline = (document.querySelector('[name="headline"]') as HTMLInputElement)?.value || 'Your Headline Here';
+    const subheadline = (document.querySelector('[name="subheadline"]') as HTMLInputElement)?.value || '';
+    const bodyText = (document.querySelector('[name="body_text"]') as HTMLTextAreaElement)?.value || '';
+    const ctaText = (document.querySelector('[name="cta_button_text"]') as HTMLInputElement)?.value || 'Get Started';
+    const colorScheme = (document.getElementById('color-scheme') as HTMLInputElement)?.value || 'blue';
+    const colors = colorSchemes[colorScheme];
+
+    const preview = document.getElementById('live-preview');
+    if (!preview) return;
+
+    preview.innerHTML = `
+      <div style="background: ${colors.primary}; min-height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 60px 40px;">
+        <div>
+          <h1 style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 20px;">${headline}</h1>
+          ${subheadline ? `<p style="font-size: 1.5rem; color: ${colors.accent}; margin-bottom: 15px;">${subheadline}</p>` : ''}
+          ${bodyText ? `<p style="font-size: 1.1rem; color: white; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">${bodyText}</p>` : ''}
+          ${uploadedImageUrl ? `<img src="${uploadedImageUrl}" style="max-width: 500px; width: 100%; margin: 30px auto; display: block; border-radius: 8px;" />` : ''}
+          <a href="#" style="display: inline-block; padding: 16px 40px; background: ${colors.accent}; color: ${colors.text}; text-decoration: none; font-weight: 700; border-radius: 8px; font-size: 1.2rem;">${ctaText}</a>
+        </div>
+      </div>
+    `;
+  }
+
+  function validateForm(): boolean {
+    const form = document.getElementById('content-form') as HTMLFormElement;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
+  function collectFormData() {
+    const form = document.getElementById('content-form') as HTMLFormElement;
+    const formData = new FormData(form);
+    const colorScheme = formData.get('color_scheme') as string;
+
+    pageData = {
+      title: formData.get('title'),
+      subdomain: formData.get('subdomain'),
+      template_name: selectedTemplate,
+      content: {
+        headline: formData.get('headline'),
+        subheadline: formData.get('subheadline'),
+        body_text: formData.get('body_text'),
+        cta_button_text: formData.get('cta_button_text'),
+        cta_button_link: formData.get('cta_button_link'),
+        hero_image_url: formData.get('hero_image_url'),
+        color_scheme: colorSchemes[colorScheme],
+        metadata: {
+          title: formData.get('headline'),
+          description: formData.get('subheadline') || formData.get('body_text')
+        }
+      }
+    };
+  }
+
+  function renderFinalPreview() {
+    // Render full preview using actual template
+    const preview = document.getElementById('final-preview');
+    if (!preview) return;
+
+    const colors = pageData.content.color_scheme;
+
+    preview.innerHTML = `
+      <div style="background: ${colors.primary}; min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 40px;">
+        <div style="max-width: 900px;">
+          <h1 style="font-size: 4rem; font-weight: 900; color: white; margin-bottom: 30px; line-height: 1.1;">${pageData.content.headline}</h1>
+          ${pageData.content.subheadline ? `<p style="font-size: 1.8rem; color: ${colors.accent}; margin-bottom: 20px; font-weight: 600;">${pageData.content.subheadline}</p>` : ''}
+          ${pageData.content.body_text ? `<p style="font-size: 1.3rem; color: white; margin-bottom: 40px; line-height: 1.6;">${pageData.content.body_text}</p>` : ''}
+          ${pageData.content.hero_image_url ? `<img src="${pageData.content.hero_image_url}" style="max-width: 700px; width: 100%; margin: 40px auto; display: block; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);" />` : ''}
+          <a href="${pageData.content.cta_button_link}" style="display: inline-block; padding: 20px 50px; background: ${colors.accent}; color: ${colors.text}; text-decoration: none; font-weight: 700; border-radius: 12px; font-size: 1.3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.2s;">${pageData.content.cta_button_text}</a>
+        </div>
+      </div>
+    `;
+  }
+
+  // Save & Publish
+  document.getElementById('save-draft')?.addEventListener('click', async () => {
+    if (!validateForm()) return;
+    collectFormData();
+    await savePage(false);
+  });
+
+  document.getElementById('publish-page')?.addEventListener('click', async () => {
+    await savePage(true);
+  });
+
+  async function savePage(publish: boolean) {
+    try {
+      const user = await getCurrentUser();
+      if (!user) throw new Error('Not authenticated');
+
+      const btn = publish ? document.getElementById('publish-page') : document.getElementById('save-draft');
+      if (btn) {
+        btn.textContent = publish ? 'Publishing...' : 'Saving...';
+        (btn as HTMLButtonElement).disabled = true;
+      }
+
+      // Check subdomain availability
+      const { data: existing } = await supabase
+        .from('landing_pages')
+        .select('id')
+        .eq('subdomain', pageData.subdomain)
+        .single();
+
+      if (existing) {
+        throw new Error('This subdomain is already taken. Please choose another.');
+      }
+
+      // Create landing page
+      const { data: newPage, error: pageError } = await supabase
+        .from('landing_pages')
+        .insert({
+          user_id: user.id,
+          title: pageData.title,
+          subdomain: pageData.subdomain,
+          template_name: pageData.template_name,
+          is_published: publish
+        })
+        .select()
+        .single();
+
+      if (pageError) throw pageError;
+
+      // Create page content
+      const { error: contentError } = await supabase
+        .from('page_content')
+        .insert({
+          page_id: newPage.id,
+          ...pageData.content,
+          color_scheme: JSON.stringify(pageData.content.color_scheme)
+        });
+
+      if (contentError) throw contentError;
+
+      showAlert(
+        publish
+          ? `🎉 Page published! Visit: ${pageData.subdomain}.landingforge.app`
+          : 'Draft saved successfully!',
+        'success'
+      );
+
+      // Redirect to dashboard after a moment
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 2000);
+
+    } catch (error: any) {
+      showAlert('Failed to save page: ' + error.message, 'error');
+      const btn = publish ? document.getElementById('publish-page') : document.getElementById('save-draft');
+      if (btn) {
+        btn.textContent = publish ? '🚀 Publish Landing Page' : 'Save Draft';
+        (btn as HTMLButtonElement).disabled = false;
+      }
+    }
+  }
+
+  function showAlert(message: string, type: 'success' | 'error') {
+    const alertContainer = document.getElementById('alert-container');
+    if (!alertContainer) return;
+
+    const alertClass = type === 'success'
+      ? 'bg-green-50 border-green-200 text-green-800'
+      : 'bg-red-50 border-red-200 text-red-800';
+
+    const icon = type === 'success' ? '✓' : '✕';
+
+    alertContainer.innerHTML = `
+      <div class="border rounded-lg p-4 mb-6 ${alertClass}">
+        <div class="flex items-start">
+          <span class="mr-2 font-bold">${icon}</span>
+          <div>${message}</div>
+        </div>
+      </div>
+    `;
+
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+      alertContainer.innerHTML = '';
+    }, 5000);
+  }
+
+  // AI button placeholders (will implement later)
+  document.querySelectorAll('.ai-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showAlert('AI features coming soon! For now, write your own amazing copy 😊', 'error');
+    });
+  });
+
+  // Initialize preview
+  updateLivePreview();
+</script>
+
+<style>
+  .ai-button {
+    @apply text-primary-600 hover:text-primary-700 font-medium;
+  }
+</style>

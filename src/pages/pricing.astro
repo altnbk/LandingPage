@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Pricing - LandingForge">
+  <div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-6">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-xl">L</span>
+          </div>
+          <span class="text-2xl font-bold text-gray-900">LandingForge</span>
+        </a>
+        <div class="flex items-center space-x-4">
+          <a href="/login" class="text-gray-600 hover:text-gray-900">Login</a>
+          <a href="/dashboard" class="btn-primary">Dashboard</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Pricing Section -->
+    <section class="container mx-auto px-6 py-20">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Start free, upgrade when you grow. No hidden fees.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+        <!-- Free Tier -->
+        <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 relative">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Free</h3>
+            <div class="mb-4">
+              <span class="text-5xl font-bold text-gray-900">$0</span>
+              <span class="text-gray-600 text-lg">/month</span>
+            </div>
+            <p class="text-sm text-gray-600">Perfect to get started</p>
+          </div>
+
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>1</strong> landing page</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">All 3 templates</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>10</strong> AI generations/month</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Subdomain hosting</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">1,000 page views/month</span>
+            </li>
+            <li class="flex items-start text-gray-400">
+              <svg class="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>Small watermark</span>
+            </li>
+          </ul>
+
+          <a href="/signup" class="btn-secondary w-full text-center block">
+            Get Started Free
+          </a>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="bg-white rounded-2xl border-2 border-primary-600 p-8 relative shadow-xl scale-105">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary-600 text-white px-6 py-1 rounded-full text-sm font-semibold">
+            Most Popular
+          </div>
+
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro</h3>
+            <div class="mb-4">
+              <span class="text-5xl font-bold text-primary-600">$29</span>
+              <span class="text-gray-600 text-lg">/month</span>
+            </div>
+            <p class="text-sm text-gray-600">For growing businesses</p>
+          </div>
+
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>5</strong> landing pages</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>Remove watermark</strong></span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>Unlimited</strong> AI generations</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">50,000 page views/month</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Basic analytics</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Email support</span>
+            </li>
+          </ul>
+
+          <button
+            class="btn-primary w-full upgrade-btn"
+            data-tier="pro"
+          >
+            Upgrade to Pro
+          </button>
+        </div>
+
+        <!-- Business Tier -->
+        <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 relative">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Business</h3>
+            <div class="mb-4">
+              <span class="text-5xl font-bold text-gray-900">$79</span>
+              <span class="text-gray-600 text-lg">/month</span>
+            </div>
+            <p class="text-sm text-gray-600">For serious businesses</p>
+          </div>
+
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>20</strong> landing pages</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>Custom domains</strong></span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700"><strong>Unlimited</strong> AI generations</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">200,000 page views/month</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Advanced analytics</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">Priority support</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">API access</span>
+            </li>
+          </ul>
+
+          <button
+            class="btn-secondary w-full upgrade-btn"
+            data-tier="business"
+          >
+            Upgrade to Business
+          </button>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="max-w-3xl mx-auto mt-20">
+        <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg p-6 border border-gray-200">
+            <h3 class="font-semibold text-lg mb-2">Can I switch plans later?</h3>
+            <p class="text-gray-600">Yes! You can upgrade or downgrade at any time. Changes take effect immediately.</p>
+          </div>
+          <div class="bg-white rounded-lg p-6 border border-gray-200">
+            <h3 class="font-semibold text-lg mb-2">What happens if I exceed my page views?</h3>
+            <p class="text-gray-600">Your pages will continue to work. We'll notify you and suggest upgrading to a higher tier.</p>
+          </div>
+          <div class="bg-white rounded-lg p-6 border border-gray-200">
+            <h3 class="font-semibold text-lg mb-2">Can I cancel anytime?</h3>
+            <p class="text-gray-600">Absolutely! Cancel anytime with one click. Your pages will remain active until the end of your billing period.</p>
+          </div>
+          <div class="bg-white rounded-lg p-6 border border-gray-200">
+            <h3 class="font-semibold text-lg mb-2">Do you offer refunds?</h3>
+            <p class="text-gray-600">Yes, we offer a 14-day money-back guarantee. No questions asked.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import { supabase, getCurrentUser } from '../lib/supabase';
+
+  // Handle upgrade button clicks
+  document.querySelectorAll('.upgrade-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const tier = (e.target as HTMLElement).getAttribute('data-tier');
+      if (!tier) return;
+
+      try {
+        // Check if user is logged in
+        const user = await getCurrentUser();
+        if (!user) {
+          window.location.href = `/login?redirect=${encodeURIComponent('/pricing')}`;
+          return;
+        }
+
+        // Disable button and show loading
+        const button = e.target as HTMLButtonElement;
+        button.disabled = true;
+        button.textContent = 'Processing...';
+
+        // Get session token
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          window.location.href = '/login';
+          return;
+        }
+
+        // Create checkout session
+        const response = await fetch('/api/stripe/checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`
+          },
+          body: JSON.stringify({ tier })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create checkout session');
+        }
+
+        // Redirect to Stripe Checkout
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error('No checkout URL received');
+        }
+
+      } catch (error: any) {
+        console.error('Upgrade error:', error);
+        alert(`Failed to start checkout: ${error.message}`);
+        const button = e.target as HTMLButtonElement;
+        button.disabled = false;
+        button.textContent = button.getAttribute('data-tier') === 'pro' ? 'Upgrade to Pro' : 'Upgrade to Business';
+      }
+    });
+  });
+</script>
