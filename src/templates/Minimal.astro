@@ -1,0 +1,223 @@
+---
+import type { PageContent } from '../types/page';
+
+interface Props {
+  content: PageContent;
+  showWatermark?: boolean;
+}
+
+const { content, showWatermark = false } = Astro.props;
+const colors = content.color_scheme;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{content.metadata?.title || content.headline}</title>
+  <meta name="description" content={content.metadata?.description || content.subheadline || ''}>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.8;
+      color: {colors.text};
+      background: {colors.background};
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 0;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 300;
+      letter-spacing: -2px;
+      margin-bottom: 30px;
+      color: {colors.primary};
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero .subheadline {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: {colors.text};
+      opacity: 0.8;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-out 0.2s both;
+    }
+
+    .hero .body-text {
+      font-size: 1.1rem;
+      color: {colors.text};
+      opacity: 0.7;
+      margin-bottom: 50px;
+      max-width: 600px;
+      animation: fadeIn 1s ease-out 0.4s both;
+    }
+
+    .hero-image {
+      margin: 50px 0;
+      animation: fadeIn 1.2s ease-out 0.6s both;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 48px;
+      background: {colors.primary};
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      animation: fadeIn 1s ease-out 0.8s both;
+    }
+
+    .cta-button:hover {
+      background: {colors.secondary};
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: {colors.primary};
+      margin: 80px auto;
+      opacity: 0.3;
+    }
+
+    .content-section {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .content-section h2 {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 30px;
+      color: {colors.text};
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 40px 0;
+    }
+
+    .feature-list li {
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1.1rem;
+      color: {colors.text};
+      opacity: 0.8;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: {colors.text};
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      z-index: 1000;
+      opacity: 0.8;
+    }
+
+    .watermark a {
+      color: {colors.accent};
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero .subheadline {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>{content.headline}</h1>
+      {content.subheadline && <p class="subheadline">{content.subheadline}</p>}
+      {content.body_text && <p class="body-text">{content.body_text}</p>}
+
+      {content.hero_image_url && (
+        <div class="hero-image">
+          <img src={content.hero_image_url} alt={content.headline} />
+        </div>
+      )}
+
+      <a href={content.cta_button_link} class="cta-button">{content.cta_button_text}</a>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="content-section">
+      <h2>What You Get</h2>
+      <ul class="feature-list">
+        <li>Premium Quality</li>
+        <li>Excellent Support</li>
+        <li>Best Value</li>
+      </ul>
+    </section>
+  </div>
+
+  {showWatermark && (
+    <div class="watermark">
+      Made with <a href="https://landingforge.com" target="_blank">LandingForge</a>
+    </div>
+  )}
+</body>
+</html>

@@ -1,0 +1,268 @@
+---
+import type { PageContent } from '../types/page';
+
+interface Props {
+  content: PageContent;
+  showWatermark?: boolean;
+}
+
+const { content, showWatermark = false } = Astro.props;
+const colors = content.color_scheme;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{content.metadata?.title || content.headline}</title>
+  <meta name="description" content={content.metadata?.description || content.subheadline || ''}>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: {colors.text};
+      background: {colors.background};
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, {colors.primary} 0%, {colors.secondary} 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 80px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text {
+      color: white;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-text .subheadline {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      opacity: 0.95;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-text .body-text {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: {colors.primary};
+      padding: 18px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.8s ease-out 0.6s both;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .hero-image {
+      position: relative;
+      animation: fadeIn 1s ease-out 0.4s both;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .features {
+      padding: 100px 0;
+      background: white;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+      color: {colors.text};
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .feature-card {
+      padding: 40px;
+      border-radius: 16px;
+      background: #f9fafb;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: {colors.primary};
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .watermark a {
+      color: {colors.accent};
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>{content.headline}</h1>
+          {content.subheadline && <p class="subheadline">{content.subheadline}</p>}
+          {content.body_text && <p class="body-text">{content.body_text}</p>}
+          <a href={content.cta_button_link} class="cta-button">{content.cta_button_text}</a>
+        </div>
+        {content.hero_image_url && (
+          <div class="hero-image">
+            <img src={content.hero_image_url} alt={content.headline} />
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2>Why Choose Us</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Lightning Fast</h3>
+          <p>Built for speed and performance</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Easy to Use</h3>
+          <p>Intuitive interface, no learning curve</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure & Reliable</h3>
+          <p>Your data is safe with us</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {showWatermark && (
+    <div class="watermark">
+      Made with <a href="https://landingforge.com" target="_blank">LandingForge</a>
+    </div>
+  )}
+</body>
+</html>

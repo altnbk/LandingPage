@@ -1,0 +1,323 @@
+---
+import type { PageContent } from '../types/page';
+
+interface Props {
+  content: PageContent;
+  showWatermark?: boolean;
+}
+
+const { content, showWatermark = false } = Astro.props;
+const colors = content.color_scheme;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{content.metadata?.title || content.headline}</title>
+  <meta name="description" content={content.metadata?.description || content.subheadline || ''}>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      line-height: 1.6;
+      color: {colors.text};
+      background: {colors.background};
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 100vh;
+      background: {colors.primary};
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255,255,255,0.03) 10px,
+          rgba(255,255,255,0.03) 20px
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      animation: zoomIn 0.8s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 4px 4px 0 {colors.secondary}, 8px 8px 0 rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .hero .subheadline {
+      font-size: 2rem;
+      font-weight: 700;
+      color: {colors.accent};
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero .body-text {
+      font-size: 1.3rem;
+      color: white;
+      margin-bottom: 50px;
+      font-family: Arial, sans-serif;
+      font-weight: 500;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-image {
+      margin: 50px 0;
+      position: relative;
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: 20px;
+      bottom: 20px;
+      background: {colors.accent};
+      z-index: -1;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      display: block;
+      border: 6px solid white;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 25px 60px;
+      background: {colors.accent};
+      color: {colors.text};
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 6px solid white;
+      box-shadow: 8px 8px 0 {colors.secondary};
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .cta-button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 6px 6px 0 {colors.secondary};
+    }
+
+    .cta-button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 4px 4px 0 {colors.secondary};
+    }
+
+    .features {
+      background: white;
+      padding: 100px 20px;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: {colors.primary};
+      margin-bottom: 80px;
+      letter-spacing: -2px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .feature-card {
+      background: {colors.primary};
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      border: 6px solid {colors.text};
+      transform: rotate(-1deg);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:nth-child(even) {
+      transform: rotate(1deg);
+    }
+
+    .feature-card:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    .feature-card h3 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .feature-card p {
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .feature-number {
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      width: 80px;
+      height: 80px;
+      background: {colors.accent};
+      border: 6px solid {colors.text};
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: {colors.text};
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: {colors.text};
+      color: white;
+      padding: 10px 20px;
+      border: 3px solid {colors.accent};
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      z-index: 1000;
+      transform: rotate(-2deg);
+    }
+
+    .watermark a {
+      color: {colors.accent};
+      text-decoration: none;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero .subheadline {
+        font-size: 1.5rem;
+      }
+
+      .features h2 {
+        font-size: 2.5rem;
+      }
+
+      .feature-card {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>{content.headline}</h1>
+      {content.subheadline && <p class="subheadline">{content.subheadline}</p>}
+      {content.body_text && <p class="body-text">{content.body_text}</p>}
+
+      {content.hero_image_url && (
+        <div class="hero-image">
+          <img src={content.hero_image_url} alt={content.headline} />
+        </div>
+      )}
+
+      <a href={content.cta_button_link} class="cta-button">{content.cta_button_text}</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-container">
+      <h2>Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-number">1</div>
+          <h3>Powerful</h3>
+          <p>Built to handle anything you throw at it</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">2</div>
+          <h3>Fast</h3>
+          <p>Lightning-quick performance guaranteed</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">3</div>
+          <h3>Reliable</h3>
+          <p>Always there when you need it most</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {showWatermark && (
+    <div class="watermark">
+      Made with <a href="https://landingforge.com" target="_blank">LandingForge</a>
+    </div>
+  )}
+</body>
+</html>
