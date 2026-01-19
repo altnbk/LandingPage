@@ -1,0 +1,193 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="Dashboard">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Welcome Section -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900" id="welcome-heading">Welcome back!</h1>
+      <p class="text-gray-600 mt-2">Create and manage your landing pages</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-xl border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600">Total Pages</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2" id="total-pages">0</p>
+          </div>
+          <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2" id="pages-limit">0 of 1 used</p>
+      </div>
+
+      <div class="bg-white rounded-xl border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600">Total Views</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2" id="total-views">0</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Last 30 days</p>
+      </div>
+
+      <div class="bg-white rounded-xl border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600">Published</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2" id="published-pages">0</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Live pages</p>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl p-8 mb-8 text-white">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">Ready to create your first landing page?</h2>
+          <p class="text-primary-100">Choose a template and let AI help you create stunning content</p>
+        </div>
+        <a href="/builder/new" class="bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">
+          Create Page
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Pages -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-gray-900">Your Landing Pages</h2>
+        <a href="/builder/new" class="text-primary-600 text-sm font-medium hover:text-primary-700">
+          + Create New
+        </a>
+      </div>
+
+      <div id="pages-list">
+        <div class="text-center py-12">
+          <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <p class="text-gray-500 mb-4">No landing pages yet</p>
+          <a href="/builder/new" class="btn-primary inline-block">
+            Create Your First Page
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  import { supabase, getCurrentUser } from '../lib/supabase';
+
+  async function loadDashboardData() {
+    try {
+      const user = await getCurrentUser();
+      if (!user) {
+        window.location.href = '/login';
+        return;
+      }
+
+      // Load profile
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      // Update welcome message
+      const welcomeHeading = document.getElementById('welcome-heading');
+      if (welcomeHeading && profile?.full_name) {
+        welcomeHeading.textContent = `Welcome back, ${profile.full_name.split(' ')[0]}!`;
+      }
+
+      // Load pages
+      const { data: pages, error } = await supabase
+        .from('landing_pages')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Update stats
+      const totalPages = pages?.length || 0;
+      const publishedPages = pages?.filter(p => p.is_published).length || 0;
+      const totalViews = pages?.reduce((sum, p) => sum + p.view_count, 0) || 0;
+
+      document.getElementById('total-pages')!.textContent = totalPages.toString();
+      document.getElementById('published-pages')!.textContent = publishedPages.toString();
+      document.getElementById('total-views')!.textContent = totalViews.toString();
+
+      // Update page limit display
+      const tierLimits: Record<string, number> = { free: 1, pro: 5, business: 20 };
+      const limit = tierLimits[profile?.subscription_tier || 'free'];
+      document.getElementById('pages-limit')!.textContent = `${totalPages} of ${limit} used`;
+
+      // Display pages list
+      if (pages && pages.length > 0) {
+        displayPages(pages);
+      }
+
+    } catch (error) {
+      console.error('Error loading dashboard:', error);
+    }
+  }
+
+  function displayPages(pages: any[]) {
+    const pagesList = document.getElementById('pages-list');
+    if (!pagesList) return;
+
+    pagesList.innerHTML = pages.map(page => `
+      <div class="border-b border-gray-200 last:border-b-0 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="flex items-center space-x-3">
+              <h3 class="text-lg font-semibold text-gray-900">${page.title}</h3>
+              ${page.is_published
+                ? '<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">Published</span>'
+                : '<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-600">Draft</span>'
+              }
+            </div>
+            <div class="mt-1 text-sm text-gray-600">
+              <span>${page.subdomain}.landingforge.app</span>
+              <span class="mx-2">•</span>
+              <span>${page.view_count} views</span>
+              <span class="mx-2">•</span>
+              <span>Updated ${new Date(page.updated_at).toLocaleDateString()}</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            ${page.is_published
+              ? `<a href="https://${page.subdomain}.landingforge.app" target="_blank" class="btn-secondary text-sm px-4 py-2">View</a>`
+              : ''
+            }
+            <a href="/builder/${page.id}" class="btn-primary text-sm px-4 py-2">Edit</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Load data on page load
+  loadDashboardData();
+</script>
